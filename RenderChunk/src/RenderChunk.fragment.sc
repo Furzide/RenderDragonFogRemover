@@ -22,9 +22,9 @@ void main() {
 #endif
 
 #if defined(SEASONS) && (defined(OPAQUE) || defined(ALPHA_TEST))
-    /*diffuse.rgb *=
+    diffuse.rgb *=
         mix(vec3(1.0, 1.0, 1.0),
-            texture2D(s_SeasonsTexture, v_color0.xy).rgb * 2.0, v_color0.b);*/
+            texture2D(s_SeasonsTexture, v_color0.xy).rgb * 2.0, v_color0.b);
     diffuse.rgb *= v_color0.aaa;
 #else
     diffuse *= v_color0;
@@ -35,9 +35,8 @@ void main() {
     diffuse.a = 1.0;
 #endif
 
-    //diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
+    diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
 
-//    diffuse.rgb = mix(diffuse.rgb,v_fog.rgb,v_fog.a); default
-//    diffuse.rgb = mix(diffuse.rgb); test
+    diffuse.rgb = mix(diffuse.rgb); //remove fog
     gl_FragColor = diffuse;
 }
