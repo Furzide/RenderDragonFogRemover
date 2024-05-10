@@ -4,7 +4,6 @@ $input a_color0, a_position, a_texcoord0, a_texcoord1
 #endif
 $output v_color0, v_texcoord0, v_lightmapUV
 //$output v_color0, v_fog, v_texcoord0, v_lightmapUV
-
 #include <bgfx_shader.sh>
 
 //uniform vec4 RenderChunkFogAlpha;
@@ -37,15 +36,15 @@ void main() {
 
     vec3 modelCamPos = (ViewPositionAndTime.xyz - worldPos);
     float camDis = length(modelCamPos);
-    /*vec4 fogColor;
+  /*vec4 fogColor;
     fogColor.rgb = FogColor.rgb;
     fogColor.a = clamp(((((camDis / FogAndDistanceControl.z) + RenderChunkFogAlpha.x) -
         FogAndDistanceControl.x) / (FogAndDistanceControl.y - FogAndDistanceControl.x)), 0.0, 1.0);*/
 
 #ifdef TRANSPARENT
     if(a_color0.a < 0.95) {
-        //color.a = mix(a_color0.a, 1.0, clamp((camDis / FogAndDistanceControl.w), 0.0, 1.0));
-		color.a = mix(a_color0.a, 1.0, clamp((camDis), 0.0, 1.0));
+        color.a = mix(a_color0.a, 1.0, clamp((camDis), 0.0, 1.0));
+		//color.a = mix(a_color0.a, 1.0, clamp((camDis / FogAndDistanceControl.w), 0.0, 1.0));
     };
 #endif
 
